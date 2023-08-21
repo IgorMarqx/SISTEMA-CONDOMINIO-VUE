@@ -1,19 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Guard from '../services/middleware';
 
-import LoginView from '../views/LoginView.vue'
-
 const routes = [
   {
     path: '/',
     name: 'login',
-    component: LoginView
+    component: () => import('../views/LoginView.vue')
   },
   {
-    path: '/about',
-    name: 'about',
+    path: '/dashboard',
+    name: 'dashboard',
     beforeEnter: Guard.auth,
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('../views/DashboardView.vue')
   }
 ]
 
