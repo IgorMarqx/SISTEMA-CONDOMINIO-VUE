@@ -27,6 +27,9 @@
    
 <script>
 import Swal from 'sweetalert2'
+import Cookie from 'js-cookie'
+import router from '@/router'
+
 export default {
     name: 'LoginComponent',
     props: [
@@ -79,7 +82,8 @@ export default {
                     }
 
                     if (data.token) {
-                        document.cookie = 'token=' + data.token + ';SameSite=Lax'
+                        Cookie.set('token', data.token)
+                        router.push({ name: 'about'})
                     }
                 })
                 .catch(error => {
