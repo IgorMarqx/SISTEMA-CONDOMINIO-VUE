@@ -31,7 +31,6 @@ import Cookie from 'js-cookie'
 import router from '@/router'
 
 export default {
-    name: 'LoginComponent',
     props: [
 
     ],
@@ -83,7 +82,7 @@ export default {
 
                     if (data.token) {
                         Cookie.set('token', data.token)
-                        router.push({ name: 'about'})
+                        router.push({ name: 'dashboard'})
                     }
                 })
                 .catch(error => {
