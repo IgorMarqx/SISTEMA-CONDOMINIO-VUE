@@ -11,18 +11,20 @@
       <div class="h-[calc(100vh-50px)] bg-[#343A40] text-white">
         <div class="flex flex-col space-y-[10px] px-[10px] py-[10px]">
           <router-link to="/"
-          class="inline-flex relative items-center w-full px-[10px] py-[10px] bg-purpleAuda rounded">
-          dashboard
+            class="inline-flex relative items-center w-full px-[10px] py-[10px] hover:bg-[#494E53] rounded">
+            Dashboard
           </router-link>
-
+          <h2 class="inline-flex relative items-center w-full px-[3px] text-sm">
+            Processos
+          </h2>
           <router-link to="/"
-            class="inline-flex relative items-center w-full px-[10px] py-[10px] bg-purpleAuda rounded">
+            class="inline-flex relative items-center w-full px-[10px] py-[10px] hover:bg-[#494E53] rounded">
             Usuários
           </router-link>
         </div>
       </div>
     </div>
-    
+
     <div class="w-full h-full bg-gray-400">
       <div class="h-[50px] bg-white flex justify-end items-center px-[10px]">
         <button class="bg-green-500" v-on:click="logout()">Sair</button>
