@@ -41,7 +41,6 @@ export default {
             errors: [],
         }
     },
-
     methods: {
         sweet(e) {
             const Toast = Swal.mixin({
@@ -82,7 +81,7 @@ export default {
 
                     if (data.token) {
                         Cookie.set('token', data.token)
-                        router.push({ name: 'dashboard'})
+                        router.push({ name: 'dashboard' })
                     }
                 })
                 .catch(error => {
