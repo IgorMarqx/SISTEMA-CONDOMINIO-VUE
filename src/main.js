@@ -1,13 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import './index.css';
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
 
+// VUESWEETALERT PACKAGE
+import './index.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import router from './router'
 
-const app = createApp(App).use(router);
+const app = createApp(App);
+
 app.use(VueSweetalert2);
 
+app.use(router);
 
 app.mount('#app');
