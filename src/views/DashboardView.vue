@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex">
+  <div class="w-screen h-screen flex overflow-hidden">
 
     <!-- SIDE BAR -->
     <div class="w-[300px] h-full" v-show="showSide">
@@ -13,7 +13,7 @@
         <div class="flex flex-col justify-between space-y-[10px] px-[10px] py-[10px]">
           <router-link to="/dashboard"
             class="inline-flex relative items-center w-full px-[10px] py-[7px] hover:bg-[#494E53] rounded"
-            :class="{'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/dashboard'}">
+            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/dashboard' }">
             <i class="fa-solid fa-gauge mr-3 text-sm"></i>
             Dashboard
           </router-link>
@@ -22,7 +22,7 @@
           </h2>
           <router-link to="/users"
             class="inline-flex relative items-center w-full px-[10px] py-[7px] hover:bg-[#494E53] rounded"
-            :class="{'bg-pink-500 text-white hover:bg-pink-500' : $route.path === '/users' || $route.path === '/users/create'}">
+            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/users' || $route.path === '/users/create' || $route.path.match(/^\/users\/\d+\/edit$/)}">
             <i class="fa-solid fa-user mr-3 text-sm"></i>
             <span>Usuários</span>
           </router-link>
@@ -75,7 +75,7 @@ export default {
     },
   },
   watch: {
-    '$route'(){
+    '$route'() {
       // console.log(this.$route.path)
     }
   }
