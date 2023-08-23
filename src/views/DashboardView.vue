@@ -16,7 +16,7 @@
             Dashboard
           </router-link>
           <h2 class="inline-flex relative items-center w-full px-[3px] text-sm">
-            Processos
+            Administração
           </h2>
           <router-link to="/users"
             class="inline-flex relative items-center w-full px-[10px] py-[10px] hover:bg-[#494E53] rounded">
@@ -29,10 +29,10 @@
     <div class="w-full h-full">
       <div class="h-[50px] bg-white flex justify-between items-center px-[10px] shadow">
         <div class="cursor-pointer w-[30px]" @click="toggleSideBar">
-          <font-awesome-icon icon="fa-solid fa-user-secret" />
+          <i class="fa-solid fa-bars"></i>
         </div>
-        <div>
-          <button class="bg-green-500" v-on:click="logout()">Sair</button>
+        <div class="flex justify-center items-center">
+          <button class="w-4" v-on:click="logout()"><i class="fa-solid fa-power-off"></i></button>
         </div>
       </div>
       <!-- MAIN -->
