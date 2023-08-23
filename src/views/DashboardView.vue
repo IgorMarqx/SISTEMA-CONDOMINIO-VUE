@@ -11,7 +11,7 @@
       </div>
       <div class="h-[calc(100vh-50px)] bg-[#343A40] text-[#CFD2D9] shadow-2xl">
         <div class="flex flex-col justify-between space-y-[10px] px-[10px] py-[10px]">
-          <router-link to="/"
+          <router-link to="/dashboard"
             class="inline-flex relative items-center w-full px-[10px] py-[10px] hover:bg-[#494E53] rounded">
             Dashboard
           </router-link>
