@@ -18,6 +18,12 @@ const routes = [
         name: 'users',
         beforeEnter: Guard.auth,
         component: () => import('../views/UsersView.vue'),
+      },
+      {
+        path: '/users/create',
+        name: 'users/create',
+        beforeEnter: Guard.auth,
+        component: () => import('../components/UsersCreateComponent.vue'),
       }
     ]
   },
