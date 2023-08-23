@@ -16,7 +16,7 @@
             </div>
             <input type="text" id="table-search"
                 class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for items">
+                placeholder="Pesquisar...">
         </div>
     </div>
 
@@ -25,34 +25,53 @@
             <thead class="text-xs text-gray-700 uppercase">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        Product name
+                        #
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Color
+                        Nome
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Category
+                        E-mail
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Price
+                        Data de Criação
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Action
+                        Data de edição
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Ações
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td v-for="user in usersList" :key="user.id"
-                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ console.log(user) }}
+                <tr class="bg-white border-b hover:bg-gray-100"
+                    v-for="user in   usersList  " :key="user.id">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ user.id }}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{ user.name }}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{ user.email }}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{ user.created_at }}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{ user.updated_at }}
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <!-- <router-link :to="'/users/' + user.id + '/show'">
+                            <i class="fa-solid fa-eye text-yellow-300 text-lg mr-4 hover:text-yellow-400"></i>
+                        </router-link> -->
+                        <router-link :to="'/users/' + user.id + '/edit'">
+                            <i class="fa-solid fa-pen-to-square text-green-500 text-lg mr-4 hover:text-green-600"></i>
+                        </router-link>
+                        <router-link :to="'/users/' + user.id + '/delete'">
+                            <i class="fa-regular fa-trash-can text-red-500 text-lg hover:text-red-600"></i>
+                        </router-link>
                     </td>
                 </tr>
             </tbody>
