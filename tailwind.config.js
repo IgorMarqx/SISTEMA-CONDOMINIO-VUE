@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'purpleAuda': '#9B3A7D',
+        'purpleAuda': '#B74585',
       },
     },
   },
