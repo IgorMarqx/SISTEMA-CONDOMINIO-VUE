@@ -11,8 +11,17 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     beforeEnter: Guard.auth,
-    component: () => import('../views/DashboardView.vue')
-  }
+    component: () => import('../views/DashboardView.vue'),
+    children: [
+      {
+        path: '/users',
+        name: 'users',
+        beforeEnter: Guard.auth,
+        component: () => import('../views/UsersView.vue'),
+      }
+    ]
+  },
+
 ]
 
 const router = createRouter({
