@@ -3,14 +3,14 @@
         <div class="flex justify-center items-center w-[16rem]">
             <form action="" @submit.prevent="login(event)">
                 <div class="w-[16rem]">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 text-start">E-mail</label>
                     <input type="text" id="email" v-model="email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="Informe seu e-mail">
                 </div>
 
                 <div class="mt-3 mb-4">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 text-start">Senha</label>
                     <input type="password" id="password" v-model="password"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="Informe sua senha">
