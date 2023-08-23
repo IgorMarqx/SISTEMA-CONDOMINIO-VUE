@@ -23,8 +23,20 @@ const routes = [
         path: '/users/create',
         name: 'users/create',
         beforeEnter: Guard.auth,
-        component: () => import('../components/UsersCreateComponent.vue'),
-      }
+        component: () => import('../components/users/UsersCreateComponent.vue'),
+      },
+      {
+        path: '/users/:id/edit',
+        name: 'users/edit',
+        beforeEnter: Guard.auth,
+        component: () => import('../components/users/UsersEditComponent.vue'),
+      },
+      {
+        path: '/users/:id/delete',
+        name: 'users/delete',
+        beforeEnter: Guard.auth,
+        component: () => import('../components/users/UsersDeleteComponent.vue'),
+      },
     ]
   },
 
