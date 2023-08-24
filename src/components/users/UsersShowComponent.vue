@@ -98,12 +98,11 @@ export default {
                     return response.json()
                 })
                 .then(data => {
-                    if (data.message) {
-                        this.sweetError(data.message, 'error');
+                    if (data.original) {
+                        this.sweetError(data.original.message, 'error');
                         router.push('/users');
                         return;
                     }
-
                     this.usersList = data;
                 })
         },
