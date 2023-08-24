@@ -77,7 +77,7 @@ export default {
         }
     },
     methods: {
-        sweet(e) {
+        sweet(event, icon) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -91,26 +91,8 @@ export default {
             })
 
             Toast.fire({
-                icon: 'error',
-                title: e
-            })
-        },
-        successSweet(e) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'success',
-                title: e
+                icon: icon,
+                title: event
             })
         },
         register() {
@@ -131,14 +113,13 @@ export default {
             fetch(url, config)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.message && data.error == true) {
-                        this.sweet(data.message)
+                    if (data.error == true) {
+                        this.sweet(data.message, 'error')
+                        return;
                     }
 
-                    if (data.error == "") {
-                        this.successSweet(data.message)
-                        router.push('/users')
-                    }
+                    this.sweet(data.message, 'success')
+                    router.push('/users')
                 })
                 .catch(error => {
                     console.log(error)
