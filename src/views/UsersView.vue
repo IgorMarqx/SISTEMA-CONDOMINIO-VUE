@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="relative overflow-x-auto shadow-md border-t-4 border-pink-500">
+    <div class="relative overflow-auto shadow-md border-t-4 border-pink-500 overflow-auto max-h-[600px]">
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase">
                 <tr>
@@ -45,8 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b hover:bg-gray-100"
-                    v-for="user in   usersList  " :key="user.id">
+                <tr class="bg-white border-b hover:bg-gray-100" v-for="user in   usersList.users  " :key="user.id">
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {{ user.id }}
                     </td>
@@ -57,30 +56,35 @@
                         {{ user.email }}
                     </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                        {{ user.created_at }}
+                        {{ fomartDate(user.created_at) }}
                     </td>
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                        {{ user.updated_at }}
+                        {{ fomartDate(user.updated_at) }}
                     </td>
                     <td class="px-6 py-4">
-                        <!-- <router-link :to="'/users/' + user.id + '/show'">
+                        <router-link :to="'/users/' + user.id + '/show'">
                             <i class="fa-solid fa-eye text-yellow-300 text-lg mr-4 hover:text-yellow-400"></i>
-                        </router-link> -->
+                        </router-link>
                         <router-link :to="'/users/' + user.id + '/edit'">
                             <i class="fa-solid fa-pen-to-square text-green-500 text-lg mr-4 hover:text-green-600"></i>
                         </router-link>
-                        <router-link :to="'/users/' + user.id + '/delete'">
+                        <span class="cursor-pointer">
                             <i class="fa-regular fa-trash-can text-red-500 text-lg hover:text-red-600"></i>
-                        </router-link>
+                        </span>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <!-- <div>
+            <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
+            <button @click="nextPage" :disabled="currentPage === totalPages">Próxima</button>
+        </div> -->
     </div>
 </template>
 
 <script>
 import Cookie from 'js-cookie';
+import axios from 'axios';
 // import Swal from 'sweetalert2'
 
 export default {
@@ -93,28 +97,27 @@ export default {
         this.fetchUsers();
     },
     methods: {
-        fetchUsers() {
-            let url = 'http://127.0.0.1:8000/api/users';
-            let config = {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + Cookie.get('token')
-                },
-            }
-            fetch(url, config)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na solicitação')
+        async fetchUsers() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/users', {
+                    headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token')
                     }
-                    return response.json()
-                })
-                .then(data => {
-                    this.usersList = data.users;
-                })
-                .catch(error => {
-                    console.log(error)
                 })
 
+                if (response.status !== 200) {
+                    throw new Error('Erro na solicitação');
+                }
+
+                this.usersList = response.data.users;
+            } catch (error) {
+                console.error(error)
+            }
+        },
+
+        fomartDate(dateString) {
+            const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
         }
     },
 }
