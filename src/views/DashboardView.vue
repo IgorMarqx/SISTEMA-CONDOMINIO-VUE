@@ -9,6 +9,7 @@
           <h3 class="text-md text-[#CFD2D9]"><strong class="text-pink-500">Auda</strong> Condominio</h3>
         </div>
       </div>
+      <!-- SIDEBAR -->
       <div class="h-[calc(100vh-50px)] bg-[#343A40] text-[#CFD2D9] shadow-2xl">
         <div class="flex flex-col justify-between space-y-[10px] px-[10px] py-[10px]">
           <router-link to="/dashboard"
@@ -22,12 +23,13 @@
           </h2>
           <router-link to="/users"
             class="inline-flex relative items-center w-full px-[10px] py-[7px] hover:bg-[#494E53] rounded"
-            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/users' || $route.path === '/users/create' || $route.path.match(/^\/users\/\d+\/edit$/)}">
+            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/users' || $route.path === '/users/create' || $route.path.match(/^\/users\/\d+\/edit$/) || $route.path.match(/^\/users\/\d+\/show$/) }">
             <i class="fa-solid fa-user mr-3 text-sm"></i>
-            <span>Usuários</span>
+            <span>Moradores</span>
           </router-link>
         </div>
       </div>
+      <!-- SIDEBAR -->
     </div>
 
     <!-- SIDE BAR -->
@@ -42,7 +44,7 @@
       </div>
       <!-- SIDE BAR -->
       <!-- MAIN -->
-      <div class="h-[calc(100vh-50px)] p-[20px]">
+      <div class="h-[calc(100vh-50px)] p-[20px] overflow-auto">
         <div>
           <router-view>
           </router-view>
