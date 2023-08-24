@@ -37,6 +37,12 @@ const routes = [
         beforeEnter: Guard.auth,
         component: () => import('../components/users/UsersDeleteComponent.vue'),
       },
+      {
+        path: '/users/:id/show',
+        name: 'users/show',
+        beforeEnter: Guard.auth,
+        component: () => import('../components/users/UsersShowComponent.vue'),
+      },
     ]
   },
 
