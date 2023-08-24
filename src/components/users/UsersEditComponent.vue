@@ -5,7 +5,7 @@
             <i class="fa-solid fa-reply"></i>
         </router-link>
         <span class="bg-[#16A34A] hover:bg-green-600 ml-2 flex items-center text-white p-2 rounded">
-            Edição de Usuários
+            Edição de Morador
         </span>
     </div>
 
@@ -65,6 +65,7 @@
 import Cookie from 'js-cookie';
 import Swal from 'sweetalert2'
 import router from '@/router'
+import axios from 'axios';
 
 export default {
     data() {
@@ -74,14 +75,15 @@ export default {
             userEdit: {
                 name: '',
                 email: ''
-            }
+            },
+            userId: this.$route.params.id
         }
     },
     mounted() {
         this.fetchUser();
     },
     methods: {
-        sweetError(e) {
+        sweetError(event, icon) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -95,71 +97,61 @@ export default {
             })
 
             Toast.fire({
-                icon: 'error',
-                title: e
+                icon: icon,
+                title: event
             })
         },
-        fetchUser() {
-            const userId = this.$route.params.id;
+        async fetchUser() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/users/' + this.userId + '/edit', {
+                    headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token'),
+                    }
+                })
 
-            let url = 'http://127.0.0.1:8000/api/users/' + userId + '/edit';
-            let config = {
-                methods: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + Cookie.get('token'),
+                if (response.status !== 200) {
+                    throw new Error('Erro na solicitação');
                 }
+
+                let data = response.data;
+
+                if (data.message) {
+                    this.sweetError(response.data.message, 'error')
+                    router.push('/users')
+                    return
+                }
+
+                this.userEdit = data
+            } catch (error) {
+                console.error(error)
             }
-
-            fetch(url, config)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na solicitação')
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.message) {
-                        router.push('/users')
-                        this.sweetError(data.message)
-                    }
-
-                    this.userEdit = data
-                })
-                .catch(error => {
-                    console.log(error)
-                })
         },
-        edit() {
-            const userId = this.$route.params.id;
-
-            let url = 'http://127.0.0.1:8000/api/users/' + userId;
-            let config = {
-                methods: 'PUT',
-                body: new URLSearchParams({
+        async edit() {
+            try {
+                const response = await axios.put('http://127.0.0.1:8000/api/users/' + this.userId, {
                     'name': this.userEdit.name,
                     'email': this.userEdit.email,
                     'password': this.password,
                     'password_confirmation': this.password_confirmation
-                }),
-                headers: {
-                    'Authorization': 'Bearer ' + Cookie.get('token'),
-                }
-            }
-
-            fetch(url, config)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na solicitação');
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token'),
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data)
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        },
+                });
+
+                let data = response.data;
+
+                if (data.error == true) {
+                    this.sweetError(data.message, 'error');
+                    return;
+                }
+
+                this.sweetError(data.message, 'success');
+                router.push('/users');
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
 }
 </script>
