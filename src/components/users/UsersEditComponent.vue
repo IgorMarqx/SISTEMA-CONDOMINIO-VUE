@@ -115,8 +115,8 @@ export default {
 
                 let data = response.data;
 
-                if (data.message) {
-                    this.sweetError(response.data.message, 'error')
+                if (data.original) {
+                    this.sweetError(data.original.message, 'error')
                     router.push('/users')
                     return
                 }
@@ -140,6 +140,12 @@ export default {
                 });
 
                 let data = response.data;
+
+                if (data.original) {
+                    this.sweetError(data.original.message, 'error');
+                    router.push('/users');
+                    return;
+                }
 
                 if (data.error == true) {
                     this.sweetError(data.message, 'error');
