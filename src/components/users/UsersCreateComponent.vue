@@ -64,6 +64,7 @@
 <script>
 import Cookie from 'js-cookie';
 import Swal from 'sweetalert2'
+import axios from 'axios';
 import router from '@/router'
 
 export default {
@@ -95,35 +96,30 @@ export default {
                 title: event
             })
         },
-        register() {
-            let url = 'http://127.0.0.1:8000/api/auth/register'
-            let config = {
-                method: 'POST',
-                body: new URLSearchParams({
+        async register() {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/auth/register', {
                     'name': this.name,
                     'email': this.email,
                     'password': this.password,
                     'password_confirmation': this.password_confirmation,
-                }),
-                headers: {
-                    'Authorization': 'Bearer' + Cookie.get('token'),
-                }
-            }
-
-            fetch(url, config)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error == true) {
-                        this.sweet(data.message, 'error')
-                        return;
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token'),
                     }
+                })
 
-                    this.sweet(data.message, 'success')
-                    router.push('/users')
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+                console.log(response)
+                if (response.data.error == true) {
+                    this.sweet(response.data.message, 'error')
+                    return;
+                }
+
+                this.sweet(response.data.original.message, 'success')
+                router.push('/users')
+            } catch (error) {
+                throw new Error(error);
+            }
         }
     }
 
