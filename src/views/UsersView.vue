@@ -45,7 +45,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b hover:bg-gray-100" v-for="user in   usersList.users  " :key="user.id">
+                <tr class="bg-white border-b hover:bg-gray-100" v-for="user in   usersList  " :key="user.id">
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {{ user.id }}
                     </td>
@@ -85,7 +85,6 @@
 <script>
 import Cookie from 'js-cookie';
 import axios from 'axios';
-// import Swal from 'sweetalert2'
 
 export default {
     data() {
@@ -109,14 +108,14 @@ export default {
                     throw new Error('Erro na solicitação');
                 }
 
-                this.usersList = response.data.users;
+                this.usersList = response.data;
             } catch (error) {
                 console.error(error)
             }
         },
 
         fomartDate(dateString) {
-            const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+            const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
             return new Date(dateString).toLocaleDateString('pt-BR', options);
         }
     },
