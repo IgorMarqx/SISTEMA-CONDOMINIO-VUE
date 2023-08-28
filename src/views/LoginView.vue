@@ -29,6 +29,7 @@
 import Swal from 'sweetalert2'
 import Cookie from 'js-cookie'
 import router from '@/router'
+import axios from 'axios'
 
 export default {
     props: [
@@ -61,32 +62,25 @@ export default {
             })
         },
 
-        login() {
-            let url = 'http://127.0.0.1:8000/api/auth/login';
-            let config = {
-                method: 'POST',
-                body: new URLSearchParams({
+        async login() {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/auth/login', {
                     'email': this.email,
                     'password': this.password,
                 })
+
+                if (response.data.original.message) {
+                    this.errors = response.data.original.message
+                    this.sweet(response.data.original.message)
+                }
+
+                if (response.data.original.token) {
+                    Cookie.set('token', response.data.original.token)
+                    router.push({ name: 'dashboard' })
+                }
+            } catch (error) {
+                throw new Error(error);
             }
-
-            fetch(url, config)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        this.errors = data.message
-                        this.sweet(data.message)
-                    }
-
-                    if (data.token) {
-                        Cookie.set('token', data.token)
-                        router.push({ name: 'dashboard' })
-                    }
-                })
-                .catch(error => {
-                    console.log('Erro na requisição', error)
-                })
         }
     }
 }
