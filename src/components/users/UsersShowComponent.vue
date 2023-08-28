@@ -50,11 +50,13 @@
 import Cookie from 'js-cookie';
 import router from '@/router'
 import Swal from 'sweetalert2'
+import axios from 'axios';
 
 export default {
     data() {
         return {
             usersList: [],
+            userId: this.$route.params.id,
         }
     },
     mounted() {
@@ -79,32 +81,24 @@ export default {
                 title: event
             })
         },
-        fetchUsers() {
-            const userId = this.$route.params.id;
+        async fetchUsers() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/users/' + this.userId, {
+                    headers: {
+                        'Authorization': 'Bearer ' + Cookie.get('token'),
+                    }
+                })
 
-            let url = 'http://127.0.0.1:8000/api/users/' + userId;
-            let config = {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + Cookie.get('token'),
+                if (response.data.error == true) {
+                    this.sweetError(response.data.message.original.message, 'error')
+                    router.push('/users')
+                    return;
                 }
-            }
 
-            fetch(url, config)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na solicitação')
-                    }
-                    return response.json()
-                })
-                .then(data => {
-                    if (data.original) {
-                        this.sweetError(data.original.message, 'error');
-                        router.push('/users');
-                        return;
-                    }
-                    this.usersList = data;
-                })
+                this.usersList = response.data.message;
+            } catch (error) {
+                throw new Error(error)
+            }
         },
         fomartDate(dateString) {
             const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
