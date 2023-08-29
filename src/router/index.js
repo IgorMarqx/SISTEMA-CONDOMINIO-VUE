@@ -14,38 +14,42 @@ const routes = [
     component: () => import('../views/DashboardView.vue'),
     children: [
       {
+        path: '/home',
+        name: 'home',
+        component: () => import('../views/CondominiumView.vue'),
+      },
+      {
+        path: '/condominium/create',
+        name: 'condominium/create',
+        component: () => import('../components/condominium/CondominiumCreateComponent.vue'),
+      },
+      {
         path: '/users',
         name: 'users',
-        beforeEnter: Guard.auth,
         component: () => import('../views/UsersView.vue'),
       },
       {
         path: '/users/create',
         name: 'users/create',
-        beforeEnter: Guard.auth,
         component: () => import('../components/users/UsersCreateComponent.vue'),
       },
       {
         path: '/users/:id/edit',
         name: 'users/edit',
-        beforeEnter: Guard.auth,
         component: () => import('../components/users/UsersEditComponent.vue'),
       },
       {
         path: '/users/:id/delete',
         name: 'users/delete',
-        beforeEnter: Guard.auth,
         component: () => import('../components/users/UsersDeleteComponent.vue'),
       },
       {
         path: '/users/:id/show',
         name: 'users/show',
-        beforeEnter: Guard.auth,
         component: () => import('../components/users/UsersShowComponent.vue'),
       },
     ]
   },
-
 ]
 
 const router = createRouter({
