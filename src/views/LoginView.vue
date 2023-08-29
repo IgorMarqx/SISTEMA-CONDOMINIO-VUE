@@ -76,7 +76,7 @@ export default {
 
                 if (response.data.original.token) {
                     Cookie.set('token', response.data.original.token)
-                    router.push({ name: 'dashboard' })
+                    router.push({ name: 'home' })
                 }
             } catch (error) {
                 throw new Error(error);
