@@ -12,9 +12,9 @@
       <!-- SIDEBAR -->
       <div class="h-[calc(100vh-50px)] bg-[#343A40] text-[#CFD2D9] shadow-2xl">
         <div class="flex flex-col justify-between space-y-[10px] px-[10px] py-[10px]">
-          <router-link to="/dashboard"
+          <router-link to="/home"
             class="inline-flex relative items-center w-full px-[10px] py-[7px] hover:bg-[#494E53] rounded"
-            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/dashboard' }">
+            :class="{ 'bg-pink-500 text-white hover:bg-pink-500': $route.path === '/home' || $route.path === '/condominium/create' }">
             <i class="fa-solid fa-gauge mr-3 text-sm"></i>
             Dashboard
           </router-link>
