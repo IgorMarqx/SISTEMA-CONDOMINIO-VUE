@@ -125,28 +125,23 @@ export default {
           'name': this.userEdit.name,
           'email': this.userEdit.email,
           'password': this.password,
-          'password_confirmation': this.password_confirmation
+          'password_confirmation': this.password_confirmation,
+          'condominium_id': 1,
+          'apartment_id':1
         }, {
           headers: {
             'Authorization': 'Bearer ' + Cookie.get('token'),
           }
         });
 
-        let data = response.data;
-
-        if (data.original) {
-          this.sweetError(data.original.message, 'error');
-          router.push('/users');
+        console.log(response)
+        if (response.data.error === true) {
+          this.sweetError(response.data.message, 'error');
           return;
         }
 
-        if (data.error == true) {
-          this.sweetError(data.message, 'error');
-          return;
-        }
-
-        this.sweetError(data.message, 'success');
-        router.push('/users');
+        this.sweetError(response.data.data.message, 'success');
+        await router.push('/users');
       } catch (error) {
         console.error(error);
       }
