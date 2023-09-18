@@ -5,8 +5,8 @@
       <i class="fa-solid fa-reply"></i>
     </router-link>
     <span class="bg-[#16A34A] hover:bg-green-600 ml-2 flex items-center text-white p-2 rounded">
-            Visualizando Morador: <strong>{{ usersList.name }}</strong>
-        </span>
+        Visualizando Morador: <strong>{{ usersList.name }}</strong>
+    </span>
   </div>
 
   <div class="text-start shadow p-6 border-t-4 border-pink-500 max-h-[600px] overflow-y-auto">
@@ -95,13 +95,13 @@ export default {
 
         this.usersList = response.data.data;
       } catch (error) {
+        console.log(error.response)
         if (error.response.status !== 200) {
           this.sweetError(error.response.data.data.message, 'error')
           await router.push('/users')
         }
       }
     },
-
     fomartDate(dateString) {
       const options = {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'};
       return new Date(dateString).toLocaleDateString('pt-BR', options);
