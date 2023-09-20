@@ -34,7 +34,7 @@
 
     <!-- SIDE BAR -->
     <div class="w-full h-full">
-      <div class="h-[50px] bg-white flex justify-between items-center px-[10px] shadow">
+      <div class="h-[50px] bg-white flex justify-between items-center px-[10px] shadow-sm">
         <div class="cursor-pointer w-[30px]" @click="toggleSideBar">
           <i class="fa-solid fa-bars"></i>
         </div>
