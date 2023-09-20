@@ -134,7 +134,6 @@ export default {
           }
         });
 
-        console.log(response)
         if (response.data.error === true) {
           this.sweetError(response.data.message, 'error');
           return;
