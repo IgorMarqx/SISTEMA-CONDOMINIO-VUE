@@ -19,11 +19,6 @@ const routes = [
         component: () => import('../views/CondominiumView.vue'),
       },
       {
-        path: '/condominium/create',
-        name: 'condominium/create',
-        component: () => import('../components/condominium/CondominiumCreateComponent.vue'),
-      },
-      {
         path: '/users',
         name: 'users',
         component: () => import('../views/UsersView.vue'),
