@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 
-// VUESWEETALERT PACKAGE
 import './index.css';
 // SWEETALERT2
 import VueSweetalert2 from 'vue-sweetalert2';
