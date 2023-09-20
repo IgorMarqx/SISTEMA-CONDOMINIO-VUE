@@ -56,8 +56,9 @@
             Escolha um condominio
           </label>
           <select name="" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded block w-full p-2"
-                  v-for="condominiums in condominiumList" :key="condominiums.id" v-model="condominium_id">
-            <option :value="condominiums.id">{{ condominiums.name }}</option>
+                   v-model="condominium_id">
+            <option disabled selected>Escolha um condominio</option>
+            <option v-for="condominiums in condominiumList" :key="condominiums.id" :value="condominiums.id">{{ condominiums.name }}</option>
           </select>
         </div>
 
