@@ -14,6 +14,11 @@ const routes = [
     component: () => import('../views/DashboardView.vue'),
     children: [
       {
+        path: '/condominium/:id/condominium',
+        name: 'condominium',
+        component: () => import('../components/condominium/CondominiumComponent.vue'),
+      },
+      {
         path: '/home',
         name: 'home',
         component: () => import('../views/CondominiumView.vue'),
